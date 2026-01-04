@@ -33,7 +33,8 @@ import c3poImage from '../assets/home/c3po.png';
     <img 
       src={c3poImage.src} 
       alt="C-3PO" 
-      class="droid-image c3po-image"
+      class="droid-image c3po-image clickable-droid"
+      data-audio="/sounds/c3po.mp3"
     />
   </div>
   
@@ -409,7 +410,6 @@ import c3poImage from '../assets/home/c3po.png';
   .floating-droid {
     position: absolute;
     z-index: 5;
-    pointer-events: none;
   }
 
   .c3po-container {
@@ -420,11 +420,26 @@ import c3poImage from '../assets/home/c3po.png';
   }
 
   .c3po-image {
-    max-width: 200px;
+    max-width: 300px;
     width: auto;
     height: auto;
     filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5));
     opacity: 0.9;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .clickable-droid {
+    cursor: pointer;
+    pointer-events: auto;
+  }
+
+  .clickable-droid:hover {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+
+  .clickable-droid:active {
+    transform: scale(0.95);
   }
 
   @keyframes float-droid {
@@ -446,7 +461,7 @@ import c3poImage from '../assets/home/c3po.png';
     }
 
     .c3po-image {
-      max-width: 150px;
+      max-width: 200px;
     }
   }
 
@@ -553,6 +568,65 @@ import c3poImage from '../assets/home/c3po.png';
       document.addEventListener('DOMContentLoaded', initBeepBopButtons);
     } else {
       initBeepBopButtons();
+    }
+  })();
+</script>
+
+<script is:inline>
+  // C-3PO Audio Handler
+  (function() {
+    let c3poAudio = null;
+    
+    function initDroidAudio() {
+      const c3poImage = document.querySelector('.c3po-image');
+      
+      if (c3poImage) {
+        const audioSrc = c3poImage.getAttribute('data-audio');
+        console.log('C-3PO audio source:', audioSrc);
+        
+        // Preload audio
+        c3poAudio = new Audio(audioSrc);
+        c3poAudio.volume = 0.7;
+        c3poAudio.preload = 'auto';
+        
+        // Handle audio load errors
+        c3poAudio.addEventListener('error', function(e) {
+          console.error('C-3PO audio load error:', e);
+        });
+        
+        c3poImage.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          console.log('C-3PO clicked, playing audio...');
+          
+          // Reset and play
+          if (c3poAudio) {
+            c3poAudio.currentTime = 0;
+            const playPromise = c3poAudio.play();
+            
+            if (playPromise !== undefined) {
+              playPromise.then(function() {
+                console.log('C-3PO audio playing');
+              }).catch(function(error) {
+                console.error('C-3PO audio play failed:', error);
+                // Try creating new instance if preloaded one fails
+                const newAudio = new Audio(audioSrc);
+                newAudio.volume = 0.7;
+                newAudio.play().catch(function(err) {
+                  console.error('C-3PO retry also failed:', err);
+                });
+              });
+            }
+          }
+        });
+      }
+    }
+    
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initDroidAudio);
+    } else {
+      setTimeout(initDroidAudio, 100);
     }
   })();
 </script>

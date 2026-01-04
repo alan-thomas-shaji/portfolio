@@ -60,7 +60,8 @@ const experiences: Experience[] = [
     <img 
       src={r2d2Image.src} 
       alt="R2-D2" 
-      class="droid-image r2d2-image"
+      class="droid-image r2d2-image clickable-droid"
+      data-audio="/sounds/r2d2.mp3"
     />
   </div>
   
@@ -303,7 +304,6 @@ const experiences: Experience[] = [
   .floating-droid {
     position: absolute;
     z-index: 5;
-    pointer-events: none;
   }
 
   .r2d2-container {
@@ -315,11 +315,26 @@ const experiences: Experience[] = [
   }
 
   .r2d2-image {
-    max-width: 180px;
+    max-width: 280px;
     width: auto;
     height: auto;
     filter: drop-shadow(0 10px 30px rgba(74, 158, 255, 0.3));
     opacity: 0.85;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .clickable-droid {
+    cursor: pointer;
+    pointer-events: auto;
+  }
+
+  .clickable-droid:hover {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+
+  .clickable-droid:active {
+    transform: scale(0.95);
   }
 
   @keyframes float-droid-r2 {
@@ -343,7 +358,7 @@ const experiences: Experience[] = [
     }
 
     .r2d2-image {
-      max-width: 140px;
+      max-width: 200px;
     }
   }
 
@@ -398,6 +413,66 @@ const experiences: Experience[] = [
       document.addEventListener('DOMContentLoaded', initExperienceCards);
     } else {
       initExperienceCards();
+    }
+  })();
+</script>
+
+<script is:inline>
+  // R2-D2 Audio Handler
+  (function() {
+    let r2d2Audio = null;
+    
+    function initDroidAudio() {
+      const r2d2Image = document.querySelector('.r2d2-image');
+      
+      if (r2d2Image) {
+        const audioSrc = r2d2Image.getAttribute('data-audio');
+        
+        console.log('R2-D2 audio source:', audioSrc);
+        
+        // Preload audio
+        r2d2Audio = new Audio(audioSrc);
+        r2d2Audio.volume = 0.7;
+        r2d2Audio.preload = 'auto';
+        
+        // Handle audio load errors
+        r2d2Audio.addEventListener('error', function(e) {
+          console.error('R2-D2 audio load error:', e);
+        });
+        
+        r2d2Image.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          console.log('R2-D2 clicked, playing audio...');
+          
+          // Reset and play
+          if (r2d2Audio) {
+            r2d2Audio.currentTime = 0;
+            const playPromise = r2d2Audio.play();
+            
+            if (playPromise !== undefined) {
+              playPromise.then(function() {
+                console.log('R2-D2 audio playing');
+              }).catch(function(error) {
+                console.error('R2-D2 audio play failed:', error);
+                // Try creating new instance if preloaded one fails
+                const newAudio = new Audio(audioSrc);
+                newAudio.volume = 0.7;
+                newAudio.play().catch(function(err) {
+                  console.error('R2-D2 retry also failed:', err);
+                });
+              });
+            }
+          }
+        });
+      }
+    }
+    
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initDroidAudio);
+    } else {
+      setTimeout(initDroidAudio, 100);
     }
   })();
 </script>
