@@ -1,0 +1,120 @@
+---
+/**
+ * Kyber Crystal Progress Indicator
+ * 
+ * A glowing crystal that represents progress through the experience timeline.
+ * The crystal glows brighter as the user scrolls.
+ */
+
+interface Props {
+  progress?: number; // 0-100
+  class?: string;
+}
+
+const { progress = 0, class: className = '' } = Astro.props;
+---
+
+<div class={`kyber-crystal-container ${className}`}>
+  <div class="kyber-crystal" style={`--progress: ${progress}%`}>
+    <div class="crystal-core"></div>
+    <div class="crystal-glow"></div>
+    <div class="crystal-particles">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .kyber-crystal-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .kyber-crystal {
+    width: 2rem;
+    height: 2rem;
+    position: relative;
+    transform: rotate(45deg);
+  }
+
+  .crystal-core {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      135deg,
+      rgba(0, 255, 255, calc(var(--progress) / 100)),
+      rgba(0, 200, 255, calc(var(--progress) / 100))
+    );
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    filter: drop-shadow(0 0 calc(var(--progress) / 10 * 8px) rgba(0, 255, 255, 0.8));
+    animation: glow-pulse 2s ease-in-out infinite;
+  }
+
+  .crystal-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    width: 150%;
+    height: 150%;
+    background: radial-gradient(
+      circle,
+      rgba(0, 255, 255, calc(var(--progress) / 100 * 0.3)) 0%,
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+
+  .crystal-particles {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200%;
+    height: 200%;
+    pointer-events: none;
+  }
+
+  .crystal-particles span {
+    position: absolute;
+    width: 0.25rem;
+    height: 0.25rem;
+    background: rgba(0, 255, 255, calc(var(--progress) / 100));
+    border-radius: 50%;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .crystal-particles span:nth-child(1) {
+    top: 10%;
+    left: 50%;
+    animation-delay: 0s;
+  }
+
+  .crystal-particles span:nth-child(2) {
+    top: 50%;
+    left: 10%;
+    animation-delay: 1s;
+  }
+
+  .crystal-particles span:nth-child(3) {
+    top: 50%;
+    right: 10%;
+    animation-delay: 2s;
+  }
+
+  @keyframes glow-pulse {
+    0%, 100% {
+      opacity: 1;
+      filter: drop-shadow(0 0 calc(var(--progress) / 10 * 8px) rgba(0, 255, 255, 0.8));
+    }
+    50% {
+      opacity: 0.7;
+      filter: drop-shadow(0 0 calc(var(--progress) / 10 * 12px) rgba(0, 255, 255, 1));
+    }
+  }
+</style>
+

@@ -1,11 +1,95 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+/**
+ * Main Portfolio Page - The Scavenger's Path
+ * 
+ * Combines the gritty workshop aesthetic with the Jedi evolution narrative
+ */
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import HeroSection from '../components/HeroSection.astro';
+import ExperienceSection from '../components/ExperienceSection.astro';
 ---
 
 <Layout>
-	<Welcome />
+  <Navigation />
+  <main>
+    <HeroSection />
+    <ExperienceSection />
+  </main>
 </Layout>
+
+<script>
+  // Smooth scroll behavior and section tracking
+  document.addEventListener('DOMContentLoaded', () => {
+    // Update active navigation on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-toggle');
+
+    const updateActiveNav = () => {
+      const scrollY = window.pageYOffset;
+
+      sections.forEach((section) => {
+        const sectionHeight = section.offsetHeight;
+        const sectionTop = section.offsetTop - 100;
+        const sectionId = section.getAttribute('id');
+
+        if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+          navLinks.forEach((link) => {
+            link.classList.remove('active');
+            if (link.getAttribute('data-section') === sectionId) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    };
+
+    window.addEventListener('scroll', updateActiveNav);
+
+    // Smooth scroll for navigation links
+    navLinks.forEach((link) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href')?.substring(1);
+        const targetSection = document.getElementById(targetId);
+        
+        if (targetSection) {
+          targetSection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+          });
+        }
+      });
+    });
+
+    // Add workshop ambient sound fade (optional - can be enhanced with actual audio)
+    const experienceSection = document.getElementById('experience');
+    if (experienceSection) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              document.body.classList.add('in-experience-section');
+            } else {
+              document.body.classList.remove('in-experience-section');
+            }
+          });
+        },
+        { threshold: 0.3 }
+      );
+      observer.observe(experienceSection);
+    }
+  });
+</script>
+
+<style>
+  main {
+    position: relative;
+  }
+
+  /* Transition effect when entering experience section */
+  body.in-experience-section {
+    transition: background 0.5s ease;
+  }
+</style>

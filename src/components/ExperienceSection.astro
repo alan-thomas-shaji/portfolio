@@ -1,0 +1,341 @@
+---
+/**
+ * Experience Section - The Jedi Evolution (Holopad Interface)
+ * 
+ * Transitions from gritty workshop to clean, glowing blue interface.
+ * Shows career progression as Jedi evolution stages.
+ */
+
+import SaberHiltIcon from './icons/SaberHiltIcon.astro';
+import KyberCrystal from './KyberCrystal.astro';
+
+interface Experience {
+  stage: string;
+  title: string;
+  company: string;
+  period: string;
+  description: string;
+  skills: string[];
+  jediVisual: string;
+}
+
+const experiences: Experience[] = [
+  {
+    stage: 'Padawan',
+    title: 'Junior Frontend Developer',
+    company: 'Tech Company',
+    period: '2019 - 2021',
+    description: 'Studying ancient scrolls (code documentation) and learning the fundamentals. Built my first projects under the guidance of experienced mentors.',
+    skills: ['HTML', 'CSS', 'JavaScript', 'Git', 'React Basics'],
+    jediVisual: 'padawan',
+  },
+  {
+    stage: 'Guardian',
+    title: 'Mid-Level Frontend Engineer',
+    company: 'Tech Company',
+    period: '2021 - 2023',
+    description: 'Deflecting blaster bolts (complex bugs) with precision. Taking on challenging projects and honing my skills in modern frameworks.',
+    skills: ['React', 'TypeScript', 'API Integration', 'State Management', 'Testing'],
+    jediVisual: 'guardian',
+  },
+  {
+    stage: 'Master',
+    title: 'Senior Software Engineer',
+    company: 'Current Company',
+    period: '2023 - Present',
+    description: 'Levitating heavy machinery (system architecture) with the Force. Leading projects, mentoring others, and building scalable solutions.',
+    skills: ['System Architecture', 'Leadership', 'Cloud Ops', 'Performance Optimization', 'Team Collaboration'],
+    jediVisual: 'master',
+  },
+];
+---
+
+<section id="experience" class="experience-section min-h-screen py-20 relative">
+  <div class="holopad-background"></div>
+  
+  <div class="container mx-auto px-4 relative z-10">
+    <div class="section-header">
+      <SaberHiltIcon class="w-10 h-10 text-jedi-blue mb-4" />
+      <h2 class="text-4xl md:text-5xl font-bold text-jedi-blue font-mono mb-4">
+        [JEDI EVOLUTION]
+      </h2>
+      <p class="text-gray-300 text-lg max-w-2xl">
+        The path from Padawan to Master, chronicled through years of code and growth.
+      </p>
+    </div>
+
+    <div class="timeline-container">
+      <div class="timeline-line">
+        <KyberCrystal progress={0} class="absolute top-0 left-1/2 transform -translate-x-1/2" />
+      </div>
+
+      <div class="experience-timeline">
+        {experiences.map((exp, index) => (
+          <div class={`experience-card ${exp.jediVisual}`} data-stage={exp.jediVisual}>
+            <div class="card-glow"></div>
+            
+            <div class="card-header">
+              <div class="stage-badge">{exp.stage}</div>
+              <div class="card-content">
+                <h3 class="card-title">{exp.title}</h3>
+                <p class="card-company">{exp.company}</p>
+                <p class="card-period">{exp.period}</p>
+              </div>
+            </div>
+
+            <p class="card-description">{exp.description}</p>
+
+            <div class="skills-grid">
+              {exp.skills.map((skill) => (
+                <span class="skill-tag">{skill}</span>
+              ))}
+            </div>
+
+            <div class="card-indicator"></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .experience-section {
+    background: linear-gradient(180deg, #1a1a1a 0%, #0a0a1a 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .holopad-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(circle at 50% 0%, rgba(74, 158, 255, 0.15) 0%, transparent 50%),
+      linear-gradient(180deg, transparent 0%, rgba(0, 217, 255, 0.05) 100%);
+    pointer-events: none;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .timeline-container {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .timeline-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      rgba(74, 158, 255, 0.3) 20%,
+      rgba(74, 158, 255, 0.5) 50%,
+      rgba(74, 158, 255, 0.3) 80%,
+      transparent
+    );
+    transform: translateX(-50%);
+  }
+
+  .experience-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    padding: 2rem 0;
+  }
+
+  .experience-card {
+    position: relative;
+    background: rgba(20, 30, 50, 0.6);
+    border: 1px solid rgba(74, 158, 255, 0.3);
+    border-radius: 12px;
+    padding: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .experience-card:nth-child(odd) {
+    margin-left: auto;
+  }
+
+  .experience-card:nth-child(even) {
+    margin-right: auto;
+  }
+
+  .experience-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .card-glow {
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(135deg, rgba(74, 158, 255, 0.5), rgba(0, 217, 255, 0.3));
+    border-radius: 12px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+    filter: blur(8px);
+  }
+
+  .experience-card:hover .card-glow {
+    opacity: 1;
+  }
+
+  .experience-card:hover {
+    border-color: rgba(74, 158, 255, 0.6);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(74, 158, 255, 0.2);
+  }
+
+  .card-header {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    align-items: flex-start;
+  }
+
+  .stage-badge {
+    background: linear-gradient(135deg, #4a9eff, #00d9ff);
+    color: #000;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+    box-shadow: 0 0 10px rgba(74, 158, 255, 0.5);
+  }
+
+  .card-content {
+    flex: 1;
+  }
+
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 0.25rem;
+  }
+
+  .card-company {
+    color: #4a9eff;
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .card-period {
+    color: #888;
+    font-size: 0.875rem;
+    font-family: 'Courier New', monospace;
+  }
+
+  .card-description {
+    color: #ccc;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .skill-tag {
+    background: rgba(74, 158, 255, 0.2);
+    border: 1px solid rgba(74, 158, 255, 0.4);
+    color: #4a9eff;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    font-family: 'Courier New', monospace;
+  }
+
+  .card-indicator {
+    position: absolute;
+    left: -3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1rem;
+    height: 1rem;
+    background: #4a9eff;
+    border: 3px solid #0a0a1a;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(74, 158, 255, 0.8);
+  }
+
+  .experience-card:nth-child(even) .card-indicator {
+    left: auto;
+    right: -3rem;
+  }
+
+  @media (max-width: 768px) {
+    .timeline-line {
+      left: 1rem;
+    }
+
+    .experience-card {
+      margin-left: 2rem !important;
+      margin-right: auto !important;
+    }
+
+    .card-indicator {
+      left: -2.5rem !important;
+      right: auto !important;
+    }
+
+    .experience-card:nth-child(even) .card-indicator {
+      left: -2.5rem !important;
+      right: auto !important;
+    }
+  }
+</style>
+
+<script is:inline>
+  // Scroll-triggered animations
+  (function() {
+    function initExperienceCards() {
+      const cards = document.querySelectorAll('.experience-card');
+      if (cards.length === 0) return;
+      
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      cards.forEach((card) => observer.observe(card));
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initExperienceCards);
+    } else {
+      initExperienceCards();
+    }
+  })();
+</script>
+

@@ -1,0 +1,111 @@
+---
+/**
+ * Navigation Component - Workshop Toggle Switches
+ * 
+ * Navigation links styled as physical toggle switches or wired-in buttons
+ * with a workshop aesthetic.
+ */
+
+interface Props {
+  currentSection?: string;
+}
+
+const { currentSection = '' } = Astro.props;
+
+const navItems = [
+  { id: 'about', label: 'About', href: '#about' },
+  { id: 'experience', label: 'Experience', href: '#experience' },
+  { id: 'projects', label: 'Projects', href: '#projects' },
+  { id: 'contact', label: 'Contact', href: '#contact' },
+];
+---
+
+<nav class="fixed top-0 left-0 right-0 z-50 bg-scrap-grey-dark/90 backdrop-blur-sm border-b border-workshop-orange/20">
+  <div class="container mx-auto px-4 py-3">
+    <div class="flex items-center justify-between">
+      <a href="#hero" class="text-workshop-orange font-bold text-xl hover:text-workshop-orange-light transition-colors">
+        <span class="font-mono">[SCAVENGER]</span>
+      </a>
+      
+      <div class="flex gap-4 items-center">
+        {navItems.map((item) => (
+          <a
+            href={item.href}
+            class={`nav-toggle ${currentSection === item.id ? 'active' : ''}`}
+            data-section={item.id}
+          >
+            <span class="toggle-label">{item.label}</span>
+            <div class="toggle-switch">
+              <div class="toggle-indicator"></div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</nav>
+
+<style>
+  .nav-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    color: #888;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .nav-toggle:hover {
+    color: #fff;
+  }
+
+  .toggle-switch {
+    width: 2.5rem;
+    height: 1.25rem;
+    background: #2a2a2a;
+    border: 1px solid #555;
+    border-radius: 0.625rem;
+    position: relative;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .toggle-indicator {
+    width: 0.875rem;
+    height: 0.875rem;
+    background: #666;
+    border-radius: 50%;
+    position: absolute;
+    left: 0.1875rem;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  }
+
+  .nav-toggle.active .toggle-indicator {
+    left: calc(100% - 0.875rem - 0.1875rem);
+    background: #ff6b35;
+    box-shadow: 0 0 8px rgba(255, 107, 53, 0.8);
+  }
+
+  .nav-toggle.active {
+    color: #ff6b35;
+  }
+
+  .toggle-label {
+    font-family: 'Courier New', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 768px) {
+    .nav-toggle .toggle-label {
+      display: none;
+    }
+  }
+</style>
+
