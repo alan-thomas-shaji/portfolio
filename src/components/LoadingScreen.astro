@@ -1,0 +1,319 @@
+---
+/**
+ * LoadingScreen Component
+ * 
+ * Multi-stage loading screen with "Server Far, Far Away" intro
+ * Stage 1: First-time visitor intro text
+ * Stage 2: Mandalorian loading animation
+ */
+
+import loadingImage from '../assets/loading/loading.png';
+---
+
+<div id="loading-screen" class="loading-screen">
+  <!-- Stage 1: Intro Text (First-time visitors only) -->
+  <div id="intro-stage" class="intro-stage">
+    <p class="intro-text">In a server far far away....</p>
+  </div>
+  
+  <!-- Stage 2: Main Loading Animation -->
+  <div id="main-loader" class="main-loader">
+    <div class="loading-content">
+      <img 
+        src={loadingImage.src} 
+        alt="Loading..." 
+        class="loading-image"
+      />
+    </div>
+  </div>
+</div>
+
+<style>
+  .loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 0.8s ease;
+  }
+
+  .loading-screen.hidden {
+    display: none;
+  }
+
+  /* Stage 1: Intro Text */
+  .intro-stage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    z-index: 10;
+  }
+
+  .intro-stage.hidden {
+    display: none;
+  }
+
+  .intro-text {
+    color: #4bd5ee;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: clamp(24px, 4vw, 48px);
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-align: center;
+    opacity: 0;
+    text-shadow: 0 0 20px rgba(75, 213, 238, 0.5);
+  }
+
+  /* Stage 2: Main Loader */
+  .main-loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    z-index: 5;
+    opacity: 0;
+  }
+
+  .main-loader.visible {
+    opacity: 1;
+  }
+
+  .loading-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  .loading-image {
+    max-width: 400px;
+    max-height: 400px;
+    width: auto;
+    height: auto;
+    animation: fade-oscillate 2s ease-in-out infinite;
+    filter: drop-shadow(0 0 20px rgba(135, 206, 250, 0.5));
+  }
+
+  @keyframes fade-oscillate {
+    0%, 100% {
+      opacity: 0.4;
+      transform: scale(0.95);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .loading-image {
+      max-width: 300px;
+      max-height: 300px;
+    }
+    
+    .intro-text {
+      font-size: 20px;
+    }
+  }
+</style>
+
+<script is:inline>
+  (function() {
+    'use strict';
+    
+    const STORAGE_KEY = 'hasSeenIntro';
+    const DEBUG_KEY = 'debugMode';
+    
+    const loader = document.getElementById('loading-screen');
+    const introStage = document.getElementById('intro-stage');
+    const mainLoader = document.getElementById('main-loader');
+    const introText = document.querySelector('.intro-text');
+    
+    let animationComplete = false;
+    const MAX_LOAD_TIME = 8000;
+    
+    // Safety fallback
+    setTimeout(function() {
+      if (!animationComplete && loader) {
+        loader.classList.add('hidden');
+        animationComplete = true;
+      }
+    }, MAX_LOAD_TIME);
+    
+    function hideLoader() {
+      if (loader && !animationComplete) {
+        loader.style.opacity = '0';
+        setTimeout(function() {
+          if (loader) {
+            loader.classList.add('hidden');
+          }
+          animationComplete = true;
+        }, 800);
+      }
+    }
+    
+    function loadAnimeJS() {
+      return new Promise(function(resolve) {
+        if (window.anime) {
+          resolve(window.anime);
+          return;
+        }
+        
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js';
+        script.async = true;
+        
+        script.onload = function() {
+          if (window.anime) {
+            resolve(window.anime);
+          } else {
+            resolve(null);
+          }
+        };
+        
+        script.onerror = function() {
+          resolve(null);
+        };
+        
+        document.head.appendChild(script);
+      });
+    }
+    
+    function initLoadingSequence() {
+      if (!loader || !introStage || !mainLoader) return;
+      
+      const hasSeenIntro = localStorage.getItem(STORAGE_KEY) === 'true';
+      const isDebugMode = localStorage.getItem(DEBUG_KEY) === 'true';
+      
+      // If user has seen intro and not in debug mode, skip Stage 1
+      if (hasSeenIntro && !isDebugMode) {
+        introStage.classList.add('hidden');
+        mainLoader.classList.add('visible');
+        startMainLoader();
+        return;
+      }
+      
+      // Otherwise, play Stage 1 first
+      loadAnimeJS().then(function(anime) {
+        if (!anime) {
+          // Fallback if anime.js fails
+          introStage.classList.add('hidden');
+          mainLoader.classList.add('visible');
+          startMainLoader();
+          return;
+        }
+        
+        // Create timeline for Stage 1
+        const timeline = window.anime.timeline({
+          complete: function() {
+            // Mark intro as seen
+            if (!isDebugMode) {
+              localStorage.setItem(STORAGE_KEY, 'true');
+            }
+            
+            // Transition to Stage 2
+            introStage.classList.add('hidden');
+            mainLoader.classList.add('visible');
+            startMainLoader();
+          }
+        });
+        
+        // Stage 1 Animation: Fade in, hold, fade out
+        timeline
+          .add({
+            targets: introText,
+            opacity: [0, 1],
+            duration: 1500,
+            easing: 'easeInOutQuad'
+          })
+          .add({
+            targets: introText,
+            opacity: 1,
+            duration: 2000,
+            easing: 'linear'
+          })
+          .add({
+            targets: introText,
+            opacity: [1, 0],
+            duration: 1500,
+            easing: 'easeInOutQuad'
+          });
+      });
+    }
+    
+    function startMainLoader() {
+      // Wait for page to fully load
+      if (document.readyState === 'complete') {
+        setTimeout(hideLoader, 500);
+      } else {
+        window.addEventListener('load', function() {
+          setTimeout(hideLoader, 500);
+        });
+      }
+      
+      // Safety fallback
+      setTimeout(function() {
+        if (!animationComplete) {
+          hideLoader();
+        }
+      }, 5000);
+    }
+    
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initLoadingSequence);
+    } else {
+      setTimeout(initLoadingSequence, 100);
+    }
+    
+    // Run if using Astro View Transitions
+    document.addEventListener('astro:after-swap', function() {
+      animationComplete = false;
+      if (loader) {
+        loader.classList.remove('hidden');
+        loader.style.opacity = '1';
+      }
+      // Skip intro on subsequent page loads
+      introStage.classList.add('hidden');
+      mainLoader.classList.add('visible');
+      startMainLoader();
+    });
+    
+    // Debug function to reset intro (can be called from console)
+    window.resetIntro = function() {
+      localStorage.removeItem(STORAGE_KEY);
+      location.reload();
+    };
+    
+    // Enable debug mode (can be called from console)
+    window.enableDebugMode = function() {
+      localStorage.setItem(DEBUG_KEY, 'true');
+      console.log('Debug mode enabled. Intro will play on every load.');
+    };
+    
+    // Disable debug mode
+    window.disableDebugMode = function() {
+      localStorage.removeItem(DEBUG_KEY);
+      console.log('Debug mode disabled.');
+    };
+  })();
+</script>

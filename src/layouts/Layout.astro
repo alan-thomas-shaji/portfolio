@@ -5,6 +5,8 @@
  * Base layout with global styles and meta tags
  */
 
+import LoadingScreen from '../components/LoadingScreen.astro';
+
 interface Props {
   title?: string;
   description?: string;
@@ -35,6 +37,7 @@ const {
     />
   </head>
   <body>
+    <LoadingScreen />
     <slot />
   </body>
 </html>
