@@ -20,7 +20,7 @@ const navItems = [
 ];
 ---
 
-<nav class="fixed top-0 left-0 right-0 z-50 bg-scrap-grey-dark/90 backdrop-blur-sm border-b border-workshop-orange/20">
+<nav class="fixed top-0 left-0 right-0 z-50 bg-[#1a1612]/95 backdrop-blur-sm border-b border-workshop-orange/30">
   <div class="container mx-auto px-4 py-3">
     <div class="flex items-center justify-between">
       <a href="#hero" class="text-workshop-orange font-bold text-xl hover:text-workshop-orange-light transition-colors">
@@ -51,7 +51,7 @@ const navItems = [
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem 1rem;
-    color: #888;
+    color: #d4a574;
     text-decoration: none;
     transition: all 0.3s ease;
     position: relative;
@@ -60,14 +60,14 @@ const navItems = [
   }
 
   .nav-toggle:hover {
-    color: #fff;
+    color: #ff8c00;
   }
 
   .toggle-switch {
     width: 2.5rem;
     height: 1.25rem;
-    background: #2a2a2a;
-    border: 1px solid #555;
+    background: #2a2520;
+    border: 1px solid #8b4513;
     border-radius: 0.625rem;
     position: relative;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
@@ -76,7 +76,7 @@ const navItems = [
   .toggle-indicator {
     width: 0.875rem;
     height: 0.875rem;
-    background: #666;
+    background: #8b4513;
     border-radius: 50%;
     position: absolute;
     left: 0.1875rem;
@@ -88,12 +88,12 @@ const navItems = [
 
   .nav-toggle.active .toggle-indicator {
     left: calc(100% - 0.875rem - 0.1875rem);
-    background: #ff6b35;
-    box-shadow: 0 0 8px rgba(255, 107, 53, 0.8);
+    background: #ff8c00;
+    box-shadow: 0 0 8px rgba(255, 140, 0, 0.8);
   }
 
   .nav-toggle.active {
-    color: #ff6b35;
+    color: #ff8c00;
   }
 
   .toggle-label {

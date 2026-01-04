@@ -4,7 +4,7 @@ export default {
 	theme: {
 		extend: {
 			colors: {
-				// Star Wars Color Palette
+				// Star Wars Color Palette - Workshop Theme
 				'imperial-red': '#8B0000',
 				'imperial-red-light': '#A00000',
 				'imperial-red-dark': '#5A0000',
@@ -14,9 +14,15 @@ export default {
 				'scrap-grey': '#3A3A3A',
 				'scrap-grey-light': '#4A4A4A',
 				'scrap-grey-dark': '#2A2A2A',
-				'workshop-orange': '#FF6B35',
-				'workshop-orange-light': '#FF8C5A',
-				'workshop-orange-dark': '#E55A20',
+				'workshop-orange': '#FF8C00',
+				'workshop-orange-light': '#FFA500',
+				'workshop-orange-dark': '#FF6B35',
+				'workshop-amber': '#D4A574',
+				'workshop-amber-light': '#E5B887',
+				'workshop-amber-dark': '#B8955A',
+				'workshop-brown': '#8B4513',
+				'workshop-brown-light': '#A0522D',
+				'workshop-brown-dark': '#654321',
 				'kyber-crystal': '#00FFFF',
 				'kyber-crystal-light': '#33FFFF',
 				'kyber-crystal-dark': '#00CCCC',
