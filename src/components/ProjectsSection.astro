@@ -1,0 +1,294 @@
+---
+/**
+ * Projects Section - Featured Work
+ * 
+ * Showcases featured projects with Star Wars workshop aesthetic
+ */
+
+import DatacardIcon from './icons/DatacardIcon.astro';
+import RebelStarbirdIcon from './icons/RebelStarbirdIcon.astro';
+
+interface Project {
+  title: string;
+  description: string;
+  technologies: string[];
+  highlights: string[];
+  link?: string;
+}
+
+const projects: Project[] = [
+  {
+    title: 'HLF Chat App',
+    description: 'A real-time blockchain-based chat system using HyperLedger Fabric, Node JS, and React. Focus on data provenance and security.',
+    technologies: ['HyperLedger Fabric', 'Node.js', 'React', 'Blockchain'],
+    highlights: ['Real-time messaging', 'Blockchain security', 'Data provenance'],
+  },
+  {
+    title: 'Resume Builder',
+    description: 'A React-based web app allowing users to generate professional resumes with customizable templates.',
+    technologies: ['React', 'TypeScript', 'Tailwind CSS'],
+    highlights: ['Customizable templates', 'PDF generation', 'User-friendly interface'],
+  },
+  {
+    title: 'Zoot',
+    description: 'A Python-based automation tool using Selenium to automate joining and managing Zoom meetings.',
+    technologies: ['Python', 'Selenium', 'Automation'],
+    highlights: ['Meeting automation', 'Time-saving', 'Reliable scheduling'],
+  },
+];
+---
+
+<section id="projects" class="projects-section min-h-screen py-20 relative">
+  <div class="workshop-background-overlay"></div>
+  
+  <div class="container mx-auto px-4 relative z-10">
+    <div class="section-header">
+      <DatacardIcon class="w-10 h-10 text-workshop-orange mb-4" />
+      <h2 class="text-4xl md:text-5xl font-bold text-workshop-orange font-mono mb-4">
+        [FEATURED PROJECTS]
+      </h2>
+      <p class="text-gray-300 text-lg max-w-2xl mx-auto">
+        Notable projects forged in the workshop, each representing a unique challenge and solution.
+      </p>
+    </div>
+
+    <div class="projects-grid">
+      {projects.map((project, index) => (
+        <div class={`project-card ${index % 2 === 0 ? 'card-left' : 'card-right'}`} data-project={index}>
+          <div class="card-glow"></div>
+          
+          <div class="card-header">
+            <RebelStarbirdIcon class="w-8 h-8 text-workshop-orange" />
+            <div class="card-title-group">
+              <h3 class="card-title">{project.title}</h3>
+            </div>
+          </div>
+
+          <p class="card-description">{project.description}</p>
+
+          <div class="card-highlights">
+            <span class="highlights-label">Key Features:</span>
+            <div class="highlights-list">
+              {project.highlights.map((highlight) => (
+                <span class="highlight-tag">{highlight}</span>
+              ))}
+            </div>
+          </div>
+
+          <div class="card-technologies">
+            <span class="tech-label">Technologies:</span>
+            <div class="tech-tags">
+              {project.technologies.map((tech) => (
+                <span class="tech-tag">{tech}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .projects-section {
+    background: linear-gradient(180deg, #0f0d0a 0%, #1a1612 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .workshop-background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(circle at 30% 30%, rgba(255, 140, 0, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 70% 70%, rgba(139, 69, 19, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .projects-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .project-card {
+    position: relative;
+    background: rgba(30, 25, 20, 0.8);
+    border: 1px solid rgba(255, 140, 0, 0.3);
+    border-radius: 12px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  }
+
+  .project-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .card-glow {
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(135deg, rgba(255, 140, 0, 0.4), rgba(139, 69, 19, 0.3));
+    border-radius: 12px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+    filter: blur(8px);
+  }
+
+  .project-card:hover .card-glow {
+    opacity: 1;
+  }
+
+  .project-card:hover {
+    border-color: rgba(255, 140, 0, 0.6);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 32px rgba(255, 140, 0, 0.2);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid rgba(255, 140, 0, 0.3);
+  }
+
+  .card-title-group {
+    flex: 1;
+  }
+
+  .card-title {
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: #ff8c00;
+    margin: 0;
+  }
+
+  .card-description {
+    color: #d4a574;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+  }
+
+  .card-highlights {
+    margin-bottom: 1.5rem;
+  }
+
+  .highlights-label {
+    display: block;
+    font-size: 0.875rem;
+    color: #ff8c00;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+    font-family: 'Courier New', monospace;
+  }
+
+  .highlights-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .highlight-tag {
+    background: rgba(255, 140, 0, 0.2);
+    border: 1px solid rgba(255, 140, 0, 0.4);
+    color: #ff8c00;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    font-family: 'Courier New', monospace;
+  }
+
+  .card-technologies {
+    margin-top: 1rem;
+  }
+
+  .tech-label {
+    display: block;
+    font-size: 0.875rem;
+    color: #d4a574;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+    font-family: 'Courier New', monospace;
+  }
+
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tech-tag {
+    background: rgba(139, 69, 19, 0.3);
+    border: 1px solid rgba(139, 69, 19, 0.5);
+    color: #d4a574;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    font-family: 'Courier New', monospace;
+  }
+
+  @media (max-width: 768px) {
+    .project-card {
+      padding: 1.5rem;
+    }
+
+    .card-title {
+      font-size: 1.5rem;
+    }
+  }
+</style>
+
+<script is:inline>
+  // Scroll-triggered animations for project cards
+  (function() {
+    function initProjectCards() {
+      const cards = document.querySelectorAll('.project-card');
+      if (cards.length === 0) return;
+      
+      const observer = new IntersectionObserver(
+        function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      cards.forEach(function(card) {
+        observer.observe(card);
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initProjectCards);
+    } else {
+      initProjectCards();
+    }
+  })();
+</script>
+

@@ -1,0 +1,218 @@
+---
+/**
+ * Contact Section - Get in Touch
+ * 
+ * Contact information with Star Wars workshop aesthetic
+ */
+
+import DatacardIcon from './icons/DatacardIcon.astro';
+import ImperialCogIcon from './icons/ImperialCogIcon.astro';
+
+const contactInfo = {
+  email: 'alanthomasshaji079@gmail.com',
+  location: 'India',
+  github: 'https://github.com', // Update with actual GitHub URL
+  linkedin: 'https://linkedin.com', // Update with actual LinkedIn URL
+};
+---
+
+<section id="contact" class="contact-section min-h-screen py-20 relative flex items-center">
+  <div class="contact-background"></div>
+  
+  <div class="container mx-auto px-4 relative z-10">
+    <div class="contact-container">
+      <div class="section-header">
+        <ImperialCogIcon class="w-10 h-10 text-workshop-orange mb-4" />
+        <h2 class="text-4xl md:text-5xl font-bold text-workshop-orange font-mono mb-4">
+          [ESTABLISH CONTACT]
+        </h2>
+        <p class="text-gray-300 text-lg max-w-2xl mx-auto mb-8">
+          Ready to collaborate on your next project? Let's connect and build something amazing together.
+        </p>
+      </div>
+
+      <div class="contact-panel">
+        <div class="contact-grid">
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+            </div>
+            <div class="contact-content">
+              <span class="contact-label">Email</span>
+              <a href={`mailto:${contactInfo.email}`} class="contact-value">{contactInfo.email}</a>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+            </div>
+            <div class="contact-content">
+              <span class="contact-label">Location</span>
+              <span class="contact-value">{contactInfo.location}</span>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-3.14 3.14-8.24 0-11.38a3.37 3.37 0 0 0-2.61-.94A3.37 3.37 0 0 0 9 4.87V1m5 18v-3.87a3.37 3.37 0 0 1 .94-2.61c-3.14-3.14-3.14-8.24 0-11.38a3.37 3.37 0 0 1 2.61-.94A3.37 3.37 0 0 1 19 4.87V1"></path>
+              </svg>
+            </div>
+            <div class="contact-content">
+              <span class="contact-label">GitHub</span>
+              <a href={contactInfo.github} target="_blank" rel="noopener noreferrer" class="contact-value">View Profile</a>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                <rect x="2" y="9" width="4" height="12"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+            </div>
+            <div class="contact-content">
+              <span class="contact-label">LinkedIn</span>
+              <a href={contactInfo.linkedin} target="_blank" rel="noopener noreferrer" class="contact-value">Connect</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-footer">
+          <p class="footer-text">
+            <span class="font-mono text-workshop-orange">[STATUS]</span> Available for new opportunities and collaborations
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-section {
+    background: linear-gradient(180deg, #1a1612 0%, #0f0d0a 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .contact-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(circle at 50% 50%, rgba(255, 140, 0, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .contact-container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .contact-panel {
+    background: rgba(30, 25, 20, 0.8);
+    border: 2px solid rgba(255, 140, 0, 0.3);
+    border-radius: 12px;
+    padding: 3rem;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: rgba(40, 35, 30, 0.5);
+    border: 1px solid rgba(255, 140, 0, 0.2);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+
+  .contact-item:hover {
+    border-color: rgba(255, 140, 0, 0.5);
+    background: rgba(40, 35, 30, 0.7);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 140, 0, 0.1);
+  }
+
+  .contact-icon {
+    color: #ff8c00;
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+  }
+
+  .contact-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .contact-label {
+    font-size: 0.75rem;
+    color: #d4a574;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-family: 'Courier New', monospace;
+  }
+
+  .contact-value {
+    font-size: 1rem;
+    color: #ff8c00;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+
+  .contact-value:hover {
+    color: #ffa500;
+    text-decoration: underline;
+  }
+
+  .contact-footer {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 140, 0, 0.2);
+    text-align: center;
+  }
+
+  .footer-text {
+    color: #d4a574;
+    font-size: 0.875rem;
+  }
+
+  @media (max-width: 768px) {
+    .contact-panel {
+      padding: 2rem 1.5rem;
+    }
+
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+</style>
+
