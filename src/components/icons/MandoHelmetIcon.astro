@@ -1,0 +1,48 @@
+---
+/**
+ * MandoHelmetIcon - Mandalorian Beskar Helmet Icon
+ * 
+ * Perfect for an "About Me" icon, or representing armor/defense skills.
+ * 
+ * @example
+ * <MandoHelmetIcon class="w-6 h-6 text-gray-400" />
+ */
+
+interface Props {
+  class?: string;
+  width?: number | string;
+  height?: number | string;
+  [key: string]: any;
+}
+
+const {
+  class: className = "",
+  width = 24,
+  height = 24,
+  ...rest
+} = Astro.props;
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+  width={width}
+  height={height}
+  class={className}
+  {...rest}
+>
+  <path
+    fill="none"
+    stroke="currentColor"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="1.5"
+    d="M12 2C7.582 2 4 5.582 4 10v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10c0-4.418-3.582-8-8-8Z"
+  />
+  <path
+    fill="currentColor"
+    stroke="none"
+    d="M12 4a1 1 0 0 1 1 1v7h5.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H13v3a.5.5 0 0 1-1 0v-3H5.5a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 .5-.5H11V5a1 1 0 0 1 1-1Z"
+  />
+</svg>
+

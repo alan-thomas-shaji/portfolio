@@ -1,0 +1,98 @@
+---
+/**
+ * SaberHiltIcon - Lightsaber Hilt (Mechanical Style)
+ * 
+ * Great for the "Experience" section or representing your core "weapon" (your main coding language).
+ * 
+ * @example
+ * <SaberHiltIcon class="w-8 h-8 text-blue-400 drop-shadow-[0_0_8px_rgba(96,165,250,0.8)]" />
+ */
+
+interface Props {
+  class?: string;
+  width?: number | string;
+  height?: number | string;
+  [key: string]: any;
+}
+
+const {
+  class: className = "",
+  width = 24,
+  height = 24,
+  ...rest
+} = Astro.props;
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+  width={width}
+  height={height}
+  class={className}
+  {...rest}
+>
+  {/* Emitter shroud */}
+  <path
+    fill="none"
+    stroke="currentColor"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="1.5"
+    d="M9 3h6v3H9z"
+  />
+  <path
+    fill="none"
+    stroke="currentColor"
+    stroke-linecap="round"
+    stroke-width="1.5"
+    d="M10.5 1v2M13.5 1v2"
+  />
+
+  {/* Main Body */}
+  <rect
+    x="10"
+    y="6"
+    width="4"
+    height="14"
+    rx="0.5"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.5"
+  />
+
+  {/* Grips/Details */}
+  <line
+    x1="10"
+    y1="9"
+    x2="14"
+    y2="9"
+    stroke="currentColor"
+    stroke-width="1.5"
+  />
+  <line
+    x1="10"
+    y1="12"
+    x2="14"
+    y2="12"
+    stroke="currentColor"
+    stroke-width="1.5"
+  />
+  <line
+    x1="10"
+    y1="15"
+    x2="14"
+    y2="15"
+    stroke="currentColor"
+    stroke-width="1.5"
+  />
+
+  {/* Pommel */}
+  <path
+    fill="currentColor"
+    d="M10 20h4v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-2z"
+  />
+
+  {/* Activator button */}
+  <circle cx="12" cy="17.5" r="0.75" fill="currentColor" />
+</svg>
+

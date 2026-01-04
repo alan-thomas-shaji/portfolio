@@ -1,0 +1,50 @@
+---
+/**
+ * ImperialCogIcon - The Imperial Cog (Scrap Tech)
+ * 
+ * Represents the industrial, structured side of tech. Good for "Architecture" or "Backend" skills.
+ * 
+ * @example
+ * <ImperialCogIcon class="w-6 h-6 text-gray-600" />
+ */
+
+interface Props {
+  class?: string;
+  width?: number | string;
+  height?: number | string;
+  [key: string]: any;
+}
+
+const {
+  class: className = "",
+  width = 24,
+  height = 24,
+  ...rest
+} = Astro.props;
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+  width={width}
+  height={height}
+  class={className}
+  {...rest}
+>
+  <g fill="none" stroke="currentColor" stroke-width="1.5">
+    {/* Outer ring and teeth */}
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M12 2v2m0 16v2M2 12h2m16 0h2m-3.5-6.062l1.414-1.414M5.086 17.478l1.414-1.414m11.002 0l-1.414-1.414M6.5 6.5L5.086 5.086"
+    />
+    <circle cx="12" cy="12" r="8" />
+    {/* Inner structure */}
+    <circle cx="12" cy="12" r="4" />
+    <path
+      stroke-linecap="round"
+      d="M12 4V8M12 16V20M4 12H8M16 12H20"
+    />
+  </g>
+</svg>
+
