@@ -52,10 +52,18 @@ import bannerImage from '../assets/home/banner.png';
             </p>
           </div>
           
-          {/* Status Indicators */}
+          {/* Status Indicators - Clickable Buttons */}
           <div class="status-indicators">
-            <div class="indicator indicator-green"></div>
-            <div class="indicator indicator-orange"></div>
+            <button 
+              class="indicator indicator-green beep-bop-button" 
+              data-sound="beep"
+              aria-label="Beep button"
+            ></button>
+            <button 
+              class="indicator indicator-orange beep-bop-button" 
+              data-sound="bop"
+              aria-label="Bop button"
+            ></button>
           </div>
         </div>
       </div>
@@ -213,6 +221,15 @@ import bannerImage from '../assets/home/banner.png';
     border-radius: 50%;
     box-shadow: 0 0 8px currentColor;
     animation: flicker 2s ease-in-out infinite;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    position: relative;
+    transition: transform 0.1s ease;
+  }
+
+  .indicator:active {
+    transform: scale(0.8);
   }
 
   .indicator-green {
@@ -225,6 +242,28 @@ import bannerImage from '../assets/home/banner.png';
     background: #ff6b35;
     color: #ff6b35;
     animation-delay: 1s;
+  }
+
+  .beep-bop-button.beep-bop-active {
+    animation: beep-bop 0.3s ease-in-out;
+  }
+
+  @keyframes beep-bop {
+    0% {
+      transform: scale(1);
+    }
+    25% {
+      transform: scale(1.5);
+    }
+    50% {
+      transform: scale(0.8);
+    }
+    75% {
+      transform: scale(1.3);
+    }
+    100% {
+      transform: scale(1);
+    }
   }
 
   .workshop-tools {
@@ -382,3 +421,85 @@ import bannerImage from '../assets/home/banner.png';
     }
   }
 </style>
+
+<script is:inline>
+  // Beep Bop sound effects using Web Audio API
+  (function() {
+    let audioContext = null;
+
+    function getAudioContext() {
+      if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      return audioContext;
+    }
+
+    function createBeepSound(frequency, duration, type = 'sine') {
+      const ctx = getAudioContext();
+      const oscillator = ctx.createOscillator();
+      const gainNode = ctx.createGain();
+
+      oscillator.connect(gainNode);
+      gainNode.connect(ctx.destination);
+
+      oscillator.frequency.value = frequency;
+      oscillator.type = type;
+
+      gainNode.gain.setValueAtTime(0.3, ctx.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + duration);
+
+      oscillator.start(ctx.currentTime);
+      oscillator.stop(ctx.currentTime + duration);
+    }
+
+    function playBeep() {
+      // High-pitched "beep" sound - two quick beeps
+      createBeepSound(800, 0.1, 'sine');
+      setTimeout(function() {
+        createBeepSound(1000, 0.1, 'sine');
+      }, 50);
+    }
+
+    function playBop() {
+      // Lower-pitched "bop" sound - two deeper bops
+      createBeepSound(400, 0.15, 'square');
+      setTimeout(function() {
+        createBeepSound(300, 0.15, 'square');
+      }, 80);
+    }
+
+    // Add click handlers to buttons
+    function initBeepBopButtons() {
+      const buttons = document.querySelectorAll('.beep-bop-button');
+      
+      buttons.forEach(function(button) {
+        button.addEventListener('click', function(e) {
+          const target = e.target || e.currentTarget;
+          const soundType = target.getAttribute('data-sound');
+          
+          // Add animation class
+          target.classList.add('beep-bop-active');
+          
+          // Play sound
+          if (soundType === 'beep') {
+            playBeep();
+          } else if (soundType === 'bop') {
+            playBop();
+          }
+          
+          // Remove animation class after animation completes
+          setTimeout(function() {
+            target.classList.remove('beep-bop-active');
+          }, 300);
+        });
+      });
+    }
+
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initBeepBopButtons);
+    } else {
+      initBeepBopButtons();
+    }
+  })();
+</script>
