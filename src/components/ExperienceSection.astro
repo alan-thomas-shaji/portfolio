@@ -9,6 +9,8 @@
 import SaberHiltIcon from './icons/SaberHiltIcon.astro';
 import KyberCrystal from './KyberCrystal.astro';
 
+import r2d2Image from '../assets/home/r2d2.png';
+
 interface Experience {
   stage: string;
   title: string;
@@ -52,6 +54,15 @@ const experiences: Experience[] = [
 
 <section id="experience" class="experience-section min-h-screen py-20 relative">
   <div class="holopad-background"></div>
+  
+  {/* R2-D2 Floating Image - Right Side */}
+  <div class="floating-droid r2d2-container">
+    <img 
+      src={r2d2Image.src} 
+      alt="R2-D2" 
+      class="droid-image r2d2-image"
+    />
+  </div>
   
   <div class="container mx-auto px-4 relative z-10">
     <div class="section-header">
@@ -289,6 +300,53 @@ const experiences: Experience[] = [
     right: -3rem;
   }
 
+  .floating-droid {
+    position: absolute;
+    z-index: 5;
+    pointer-events: none;
+  }
+
+  .r2d2-container {
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    animation: float-droid-r2 3.5s ease-in-out infinite;
+    animation-delay: 0.5s;
+  }
+
+  .r2d2-image {
+    max-width: 180px;
+    width: auto;
+    height: auto;
+    filter: drop-shadow(0 10px 30px rgba(74, 158, 255, 0.3));
+    opacity: 0.85;
+  }
+
+  @keyframes float-droid-r2 {
+    0%, 100% {
+      transform: translateY(-50%) translateY(0px) rotate(0deg);
+    }
+    25% {
+      transform: translateY(-50%) translateY(-15px) rotate(2deg);
+    }
+    50% {
+      transform: translateY(-50%) translateY(-25px) rotate(0deg);
+    }
+    75% {
+      transform: translateY(-50%) translateY(-15px) rotate(-2deg);
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .r2d2-container {
+      right: 1rem;
+    }
+
+    .r2d2-image {
+      max-width: 140px;
+    }
+  }
+
   @media (max-width: 768px) {
     .timeline-line {
       left: 1rem;
@@ -307,6 +365,10 @@ const experiences: Experience[] = [
     .experience-card:nth-child(even) .card-indicator {
       left: -2.5rem !important;
       right: auto !important;
+    }
+
+    .r2d2-container {
+      display: none;
     }
   }
 </style>

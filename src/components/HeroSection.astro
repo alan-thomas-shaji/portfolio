@@ -13,6 +13,7 @@ import DatacardIcon from './icons/DatacardIcon.astro';
 import HydroSpannerIcon from './icons/HydroSpannerIcon.astro';
 
 import bannerImage from '../assets/home/banner.png';
+import c3poImage from '../assets/home/c3po.png';
 ---
 
 <section id="hero" class="hero-section min-h-screen flex items-center justify-center relative overflow-hidden">
@@ -25,6 +26,15 @@ import bannerImage from '../assets/home/banner.png';
       fetchpriority="high"
     />
     <div class="workbench-overlay"></div>
+  </div>
+  
+  {/* C-3PO Floating Image - Left Side */}
+  <div class="floating-droid c3po-container">
+    <img 
+      src={c3poImage.src} 
+      alt="C-3PO" 
+      class="droid-image c3po-image"
+    />
   </div>
   
   <div class="container mx-auto px-4 py-20 relative z-10">
@@ -396,9 +406,47 @@ import bannerImage from '../assets/home/banner.png';
     border-top: 8px solid #ff8c00;
   }
 
+  .floating-droid {
+    position: absolute;
+    z-index: 5;
+    pointer-events: none;
+  }
+
+  .c3po-container {
+    left: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    animation: float-droid 4s ease-in-out infinite;
+  }
+
+  .c3po-image {
+    max-width: 200px;
+    width: auto;
+    height: auto;
+    filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5));
+    opacity: 0.9;
+  }
+
+  @keyframes float-droid {
+    0%, 100% {
+      transform: translateY(-50%) translateY(0px);
+    }
+    50% {
+      transform: translateY(-50%) translateY(-20px);
+    }
+  }
+
   @media (max-width: 1024px) {
     .workshop-decorations {
       display: none;
+    }
+
+    .c3po-container {
+      left: 1rem;
+    }
+
+    .c3po-image {
+      max-width: 150px;
     }
   }
 
@@ -419,6 +467,10 @@ import bannerImage from '../assets/home/banner.png';
       background: 
         radial-gradient(circle at 80% 20%, rgba(255, 140, 0, 0.2) 0%, transparent 40%),
         linear-gradient(180deg, rgba(26, 22, 18, 0.8) 0%, rgba(26, 22, 18, 0.95) 100%);
+    }
+
+    .c3po-container {
+      display: none;
     }
   }
 </style>
