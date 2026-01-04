@@ -8,6 +8,8 @@
 import DatacardIcon from './icons/DatacardIcon.astro';
 import RebelStarbirdIcon from './icons/RebelStarbirdIcon.astro';
 
+import falconImage from '../assets/home/falcon.png';
+
 interface Project {
   title: string;
   description: string;
@@ -43,13 +45,27 @@ const projects: Project[] = [
   
   <div class="container mx-auto px-4 relative z-10">
     <div class="section-header">
-      <DatacardIcon class="w-10 h-10 text-workshop-orange mb-4" />
-      <h2 class="text-4xl md:text-5xl font-bold text-workshop-orange font-mono mb-4">
-        [FEATURED PROJECTS]
-      </h2>
-      <p class="text-gray-300 text-lg max-w-2xl mx-auto">
-        Notable projects forged in the workshop, each representing a unique challenge and solution.
-      </p>
+      <div class="header-content">
+        <div class="header-left">
+          <DatacardIcon class="w-10 h-10 text-workshop-orange mb-4" />
+          <h2 class="text-4xl md:text-5xl font-bold text-workshop-orange font-mono mb-4">
+            [FEATURED PROJECTS]
+          </h2>
+          <p class="text-gray-300 text-lg max-w-2xl">
+            Notable projects forged in the workshop, each representing a unique challenge and solution.
+          </p>
+        </div>
+        <div class="header-right">
+          <div class="falcon-container">
+            <img 
+              src={falconImage.src} 
+              alt="Millennium Falcon" 
+              class="falcon-image clickable-falcon"
+              id="millennium-falcon"
+            />
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="projects-grid">
@@ -109,8 +125,52 @@ const projects: Project[] = [
   }
 
   .section-header {
-    text-align: center;
     margin-bottom: 4rem;
+    position: relative;
+  }
+
+  .header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    position: relative;
+  }
+
+  .header-left {
+    flex: 1;
+    text-align: center;
+  }
+
+  .header-right {
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .falcon-container {
+    perspective: 2000px;
+    transform-style: preserve-3d;
+  }
+
+  .falcon-image {
+    max-width: 200px;
+    width: auto;
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    filter: drop-shadow(0 10px 30px rgba(255, 140, 0, 0.3));
+    transform-style: preserve-3d;
+    transform-origin: center center;
+  }
+
+  .falcon-image:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 15px 40px rgba(255, 140, 0, 0.5));
+  }
+
+  .falcon-image.flying {
+    pointer-events: none;
+    will-change: transform;
   }
 
   .projects-grid {
@@ -250,6 +310,21 @@ const projects: Project[] = [
     font-family: 'Courier New', monospace;
   }
 
+  @media (max-width: 1024px) {
+    .header-content {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .header-right {
+      margin-top: 1rem;
+    }
+
+    .falcon-image {
+      max-width: 150px;
+    }
+  }
+
   @media (max-width: 768px) {
     .project-card {
       padding: 1.5rem;
@@ -257,6 +332,10 @@ const projects: Project[] = [
 
     .card-title {
       font-size: 1.5rem;
+    }
+
+    .falcon-image {
+      max-width: 120px;
     }
   }
 </style>
@@ -288,6 +367,159 @@ const projects: Project[] = [
       document.addEventListener('DOMContentLoaded', initProjectCards);
     } else {
       initProjectCards();
+    }
+  })();
+</script>
+
+<script is:inline>
+  // Millennium Falcon 3D Fly-Out Animation
+  (function() {
+    function loadAnimeJS() {
+      return new Promise(function(resolve) {
+        if (window.anime) {
+          resolve(window.anime);
+          return;
+        }
+        
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js';
+        script.async = true;
+        
+        script.onload = function() {
+          if (window.anime) {
+            resolve(window.anime);
+          } else {
+            resolve(null);
+          }
+        };
+        
+        script.onerror = function() {
+          resolve(null);
+        };
+        
+        document.head.appendChild(script);
+      });
+    }
+
+    function initFalconAnimation() {
+      const falcon = document.getElementById('millennium-falcon');
+      if (!falcon) return;
+
+      loadAnimeJS().then(function(anime) {
+        if (!anime) {
+          console.warn('Anime.js not loaded, falcon animation disabled');
+          return;
+        }
+
+        falcon.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          // Prevent multiple clicks
+          if (falcon.classList.contains('flying')) return;
+          
+          falcon.classList.add('flying');
+          
+          // Set initial transform style for 3D
+          falcon.style.transformStyle = 'preserve-3d';
+          
+          // Get current position relative to viewport center
+          const rect = falcon.getBoundingClientRect();
+          const startX = rect.left + rect.width / 2 - window.innerWidth / 2;
+          const startY = rect.top + rect.height / 2 - window.innerHeight / 2;
+          
+          // Calculate target position (diagonal bottom-left exit)
+          const targetX = -window.innerWidth * 0.6;
+          const targetY = window.innerHeight * 0.8;
+          
+          // Animation state object for anime.js to animate
+          const animState = {
+            translateX: 0,
+            translateY: 0,
+            translateZ: 0,
+            rotateZ: 0,
+            rotateY: 0,
+            scale: 1,
+            opacity: 1
+          };
+          
+          // Function to apply 3D transform
+          function applyTransform() {
+            falcon.style.transform = 
+              `translate3d(${animState.translateX}px, ${animState.translateY}px, ${animState.translateZ}px) ` +
+              `rotateZ(${animState.rotateZ}deg) rotateY(${animState.rotateY}deg) ` +
+              `scale(${animState.scale})`;
+            falcon.style.opacity = animState.opacity;
+          }
+          
+          // Create cinematic timeline animation
+          const timeline = window.anime.timeline({
+            update: applyTransform,
+            complete: function() {
+              // Reset position after animation
+              setTimeout(function() {
+                falcon.style.transform = '';
+                falcon.style.transformStyle = '';
+                falcon.style.opacity = '1';
+                falcon.classList.remove('flying');
+                // Reset state
+                Object.assign(animState, {
+                  translateX: 0,
+                  translateY: 0,
+                  translateZ: 0,
+                  rotateZ: 0,
+                  rotateY: 0,
+                  scale: 1,
+                  opacity: 1
+                });
+              }, 100);
+            }
+          });
+          
+          // Phase 1: Anticipation (slight scale + tilt)
+          timeline.add({
+            targets: animState,
+            scale: [1, 1.15],
+            rotateZ: [0, 8],
+            rotateY: [0, -10],
+            duration: 300,
+            easing: 'easeOutQuad'
+          });
+          
+          // Phase 2: Bank and accelerate diagonally (bottom-left)
+          timeline.add({
+            targets: animState,
+            translateX: [0, targetX],
+            translateY: [0, targetY],
+            translateZ: [0, 800],
+            rotateZ: [8, -35],
+            rotateY: [-10, -60],
+            scale: [1.15, 0.8],
+            duration: 800,
+            easing: 'easeInExpo'
+          });
+          
+          // Phase 3: Hyperspace entry (shrink, rotate, disappear)
+          timeline.add({
+            targets: animState,
+            translateX: [targetX, targetX * 1.5],
+            translateY: [targetY, targetY * 1.2],
+            translateZ: [800, 2500],
+            rotateZ: [-35, -180],
+            rotateY: [-60, -90],
+            scale: [0.8, 0.05],
+            opacity: [1, 0],
+            duration: 900,
+            easing: 'easeInExpo'
+          });
+        });
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initFalconAnimation);
+    } else {
+      setTimeout(initFalconAnimation, 100);
     }
   })();
 </script>
