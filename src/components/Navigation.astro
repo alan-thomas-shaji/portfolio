@@ -22,10 +22,10 @@ const navItems = [
 ];
 ---
 
-<nav id="main-nav" class="nav-bar fixed top-0 left-0 right-0 z-50 bg-[#1a1612]/95 backdrop-blur-sm border-b border-workshop-orange/30 transition-transform duration-300">
+<nav id="main-nav" class="nav-bar nav-hero fixed top-0 left-0 right-0 z-50 bg-[#1a1612]/95 backdrop-blur-sm transition-all duration-300">
   <div class="container mx-auto px-4 py-3">
     <div class="flex items-center justify-between">
-      <a href="#hero" class="text-workshop-orange font-bold text-xl hover:text-workshop-orange-light transition-colors">
+      <a href="#hero" class="nav-brand font-bold text-xl transition-colors">
         <span class="font-mono">[ALAN THOMAS SHAJI]</span>
       </a>
       
@@ -65,7 +65,7 @@ const navItems = [
   <div class="mobile-menu-overlay"></div>
   <div class="mobile-menu-drawer">
     <div class="mobile-menu-header">
-      <span class="mobile-menu-title font-mono text-workshop-orange">[NAVIGATION]</span>
+      <span class="mobile-menu-title font-mono">[NAVIGATION]</span>
       <button 
         id="mobile-menu-close" 
         class="mobile-menu-close"
@@ -104,6 +104,259 @@ const navItems = [
     transition: transform 0.3s ease-in;
   }
 
+  /* Section-based color themes */
+  .nav-bar {
+    border-bottom: 2px solid;
+    transition: border-color 0.4s ease, color 0.4s ease;
+  }
+
+  /* Hero Section - Gold/Orange */
+  .nav-hero {
+    border-color: rgba(255, 140, 0, 0.3);
+  }
+
+  .nav-hero .nav-brand {
+    color: #ff8c00;
+  }
+
+  .nav-hero .nav-brand:hover {
+    color: #ffa500;
+  }
+
+  .nav-hero .nav-toggle {
+    color: #d4a574;
+  }
+
+  .nav-hero .nav-toggle:hover {
+    color: #ff8c00;
+  }
+
+  .nav-hero .nav-toggle.active {
+    color: #ff8c00;
+  }
+
+  .nav-hero .nav-toggle.active .toggle-indicator {
+    left: calc(100% - 0.875rem - 0.1875rem);
+    background: #ff8c00;
+    box-shadow: 0 0 8px rgba(255, 140, 0, 0.8);
+  }
+
+  /* Experience Section - Blue Toggle */
+  .nav-experience .toggle-switch {
+    background: rgba(10, 10, 26, 0.8);
+    border: 1px solid rgba(74, 158, 255, 0.4);
+  }
+
+  .nav-experience .toggle-indicator {
+    background: rgba(74, 158, 255, 0.6);
+  }
+
+  .nav-hero .hamburger-line {
+    background: #ff8c00;
+  }
+
+  .nav-hero .mobile-menu-title {
+    color: #ff8c00;
+  }
+
+  .nav-hero .mobile-menu-drawer {
+    border-left-color: rgba(255, 140, 0, 0.3);
+  }
+
+  /* Experience Section - Blue */
+  .nav-experience {
+    border-color: rgba(74, 158, 255, 0.3);
+  }
+
+  .nav-experience .nav-brand {
+    color: #4a9eff;
+  }
+
+  .nav-experience .nav-brand:hover {
+    color: #6bb0ff;
+  }
+
+  .nav-experience .nav-toggle {
+    color: rgba(74, 158, 255, 0.7);
+  }
+
+  .nav-experience .nav-toggle:hover {
+    color: #4a9eff;
+  }
+
+  .nav-experience .nav-toggle.active {
+    color: #4a9eff;
+  }
+
+  .nav-experience .nav-toggle.active .toggle-indicator {
+    left: calc(100% - 0.875rem - 0.1875rem);
+    background: #4a9eff;
+    box-shadow: 0 0 8px rgba(74, 158, 255, 0.8);
+  }
+
+  /* Projects Section - Red Toggle */
+  .nav-projects .toggle-switch {
+    background: rgba(42, 23, 23, 0.8);
+    border: 1px solid rgba(122, 43, 43, 0.5);
+  }
+
+  .nav-projects .toggle-indicator {
+    background: rgba(226, 85, 85, 0.6);
+  }
+
+  .nav-experience .hamburger-line {
+    background: #4a9eff;
+  }
+
+  .nav-experience .mobile-menu-title {
+    color: #4a9eff;
+  }
+
+  .nav-experience .mobile-menu-drawer {
+    border-left-color: rgba(74, 158, 255, 0.3);
+  }
+
+  /* Projects Section - Red */
+  .nav-projects {
+    border-color: rgba(226, 85, 85, 0.3);
+  }
+
+  .nav-projects .nav-brand {
+    color: #E25555;
+  }
+
+  .nav-projects .nav-brand:hover {
+    color: #ff6b6b;
+  }
+
+  .nav-projects .nav-toggle {
+    color: rgba(226, 85, 85, 0.7);
+  }
+
+  .nav-projects .nav-toggle:hover {
+    color: #E25555;
+  }
+
+  .nav-projects .nav-toggle.active {
+    color: #E25555;
+  }
+
+  .nav-projects .nav-toggle.active .toggle-indicator {
+    left: calc(100% - 0.875rem - 0.1875rem);
+    background: #E25555;
+    box-shadow: 0 0 8px rgba(226, 85, 85, 0.8);
+  }
+
+  /* Contact Section - Green Toggle */
+  .nav-contact .toggle-switch {
+    background: rgba(18, 39, 35, 0.8);
+    border: 1px solid rgba(31, 90, 71, 0.5);
+  }
+
+  .nav-contact .toggle-indicator {
+    background: rgba(78, 214, 166, 0.6);
+  }
+
+  .nav-projects .hamburger-line {
+    background: #E25555;
+  }
+
+  .nav-projects .mobile-menu-title {
+    color: #E25555;
+  }
+
+  .nav-projects .mobile-menu-drawer {
+    border-left-color: rgba(226, 85, 85, 0.3);
+  }
+
+  /* Contact Section - Green */
+  .nav-contact {
+    border-color: rgba(78, 214, 166, 0.3);
+  }
+
+  .nav-contact .nav-brand {
+    color: #4ED6A6;
+  }
+
+  .nav-contact .nav-brand:hover {
+    color: #7FF2C4;
+  }
+
+  .nav-contact .nav-toggle {
+    color: rgba(78, 214, 166, 0.7);
+  }
+
+  .nav-contact .nav-toggle:hover {
+    color: #4ED6A6;
+  }
+
+  .nav-contact .nav-toggle.active {
+    color: #4ED6A6;
+  }
+
+  .nav-contact .nav-toggle.active .toggle-indicator {
+    left: calc(100% - 0.875rem - 0.1875rem);
+    background: #4ED6A6;
+    box-shadow: 0 0 8px rgba(78, 214, 166, 0.8);
+  }
+
+  .nav-contact .hamburger-line {
+    background: #4ED6A6;
+  }
+
+  .nav-contact .mobile-menu-title {
+    color: #4ED6A6;
+  }
+
+  .nav-contact .mobile-menu-drawer {
+    border-left-color: rgba(78, 214, 166, 0.3);
+  }
+
+  /* Mobile menu active states for each section */
+  .nav-hero .mobile-nav-item.active {
+    color: #ff8c00;
+    background: rgba(255, 140, 0, 0.15);
+  }
+
+  .nav-hero .mobile-nav-item.active .mobile-toggle-indicator {
+    left: calc(100% - 0.75rem - 0.125rem);
+    background: #ff8c00;
+    box-shadow: 0 0 8px rgba(255, 140, 0, 0.8);
+  }
+
+  .nav-experience .mobile-nav-item.active {
+    color: #4a9eff;
+    background: rgba(74, 158, 255, 0.15);
+  }
+
+  .nav-experience .mobile-nav-item.active .mobile-toggle-indicator {
+    left: calc(100% - 0.75rem - 0.125rem);
+    background: #4a9eff;
+    box-shadow: 0 0 8px rgba(74, 158, 255, 0.8);
+  }
+
+  .nav-projects .mobile-nav-item.active {
+    color: #E25555;
+    background: rgba(226, 85, 85, 0.15);
+  }
+
+  .nav-projects .mobile-nav-item.active .mobile-toggle-indicator {
+    left: calc(100% - 0.75rem - 0.125rem);
+    background: #E25555;
+    box-shadow: 0 0 8px rgba(226, 85, 85, 0.8);
+  }
+
+  .nav-contact .mobile-nav-item.active {
+    color: #4ED6A6;
+    background: rgba(78, 214, 166, 0.15);
+  }
+
+  .nav-contact .mobile-nav-item.active .mobile-toggle-indicator {
+    left: calc(100% - 0.75rem - 0.125rem);
+    background: #4ED6A6;
+    box-shadow: 0 0 8px rgba(78, 214, 166, 0.8);
+  }
+
   /* Desktop Navigation */
   .desktop-nav {
     display: flex;
@@ -114,7 +367,6 @@ const navItems = [
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem 1rem;
-    color: #d4a574;
     text-decoration: none;
     transition: all 0.3s ease;
     position: relative;
@@ -122,24 +374,20 @@ const navItems = [
     font-weight: 500;
   }
 
-  .nav-toggle:hover {
-    color: #ff8c00;
-  }
+  /* Default colors handled by section classes */
 
   .toggle-switch {
     width: 2.5rem;
     height: 1.25rem;
-    background: #2a2520;
-    border: 1px solid #8b4513;
     border-radius: 0.625rem;
     position: relative;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+    transition: background 0.4s ease, border-color 0.4s ease;
   }
 
   .toggle-indicator {
     width: 0.875rem;
     height: 0.875rem;
-    background: #8b4513;
     border-radius: 50%;
     position: absolute;
     left: 0.1875rem;
@@ -149,15 +397,17 @@ const navItems = [
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
   }
 
-  .nav-toggle.active .toggle-indicator {
-    left: calc(100% - 0.875rem - 0.1875rem);
-    background: #ff8c00;
-    box-shadow: 0 0 8px rgba(255, 140, 0, 0.8);
+  /* Hero Section - Gold/Orange Toggle */
+  .nav-hero .toggle-switch {
+    background: #2a2520;
+    border: 1px solid #8b4513;
   }
 
-  .nav-toggle.active {
-    color: #ff8c00;
+  .nav-hero .toggle-indicator {
+    background: #8b4513;
   }
+
+  /* Active state handled by section classes */
 
   .toggle-label {
     font-family: 'Courier New', monospace;
@@ -183,7 +433,6 @@ const navItems = [
   .hamburger-line {
     width: 100%;
     height: 3px;
-    background: #ff8c00;
     border-radius: 2px;
     transition: all 0.3s ease;
     transform-origin: center;
@@ -233,9 +482,9 @@ const navItems = [
     max-width: 85vw;
     height: 100vh;
     background: linear-gradient(180deg, #1a1612 0%, #0f0d0a 100%);
-    border-left: 2px solid rgba(255, 140, 0, 0.3);
+    border-left: 2px solid;
     z-index: 9999;
-    transition: right 0.3s ease;
+    transition: right 0.3s ease, border-color 0.4s ease;
     overflow-y: auto;
     box-shadow: -4px 0 20px rgba(0, 0, 0, 0.5);
   }
@@ -249,7 +498,24 @@ const navItems = [
     justify-content: space-between;
     align-items: center;
     padding: 1.5rem;
-    border-bottom: 1px solid rgba(255, 140, 0, 0.3);
+    border-bottom: 1px solid;
+    transition: border-color 0.4s ease;
+  }
+
+  .nav-hero .mobile-menu-header {
+    border-bottom-color: rgba(255, 140, 0, 0.3);
+  }
+
+  .nav-experience .mobile-menu-header {
+    border-bottom-color: rgba(74, 158, 255, 0.3);
+  }
+
+  .nav-projects .mobile-menu-header {
+    border-bottom-color: rgba(226, 85, 85, 0.3);
+  }
+
+  .nav-contact .mobile-menu-header {
+    border-bottom-color: rgba(78, 214, 166, 0.3);
   }
 
   .mobile-menu-title {
@@ -260,7 +526,6 @@ const navItems = [
   .mobile-menu-close {
     background: transparent;
     border: none;
-    color: #ff8c00;
     font-size: 2rem;
     line-height: 1;
     cursor: pointer;
@@ -270,7 +535,23 @@ const navItems = [
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, color 0.4s ease;
+  }
+
+  .nav-hero .mobile-menu-close {
+    color: #ff8c00;
+  }
+
+  .nav-experience .mobile-menu-close {
+    color: #4a9eff;
+  }
+
+  .nav-projects .mobile-menu-close {
+    color: #E25555;
+  }
+
+  .nav-contact .mobile-menu-close {
+    color: #4ED6A6;
   }
 
   .mobile-menu-close:hover {
@@ -291,21 +572,53 @@ const navItems = [
     align-items: center;
     justify-content: space-between;
     padding: 1rem 1.5rem;
-    color: #d4a574;
     text-decoration: none;
     transition: all 0.3s ease;
-    border-bottom: 1px solid rgba(255, 140, 0, 0.1);
+    border-bottom: 1px solid;
   }
 
-  .mobile-nav-item:hover {
+  /* Mobile nav default colors by section */
+  .nav-hero .mobile-nav-item {
+    color: #d4a574;
+    border-bottom-color: rgba(255, 140, 0, 0.1);
+  }
+
+  .nav-hero .mobile-nav-item:hover {
     background: rgba(255, 140, 0, 0.1);
     color: #ff8c00;
   }
 
-  .mobile-nav-item.active {
-    color: #ff8c00;
-    background: rgba(255, 140, 0, 0.15);
+  .nav-experience .mobile-nav-item {
+    color: rgba(74, 158, 255, 0.7);
+    border-bottom-color: rgba(74, 158, 255, 0.1);
   }
+
+  .nav-experience .mobile-nav-item:hover {
+    background: rgba(74, 158, 255, 0.1);
+    color: #4a9eff;
+  }
+
+  .nav-projects .mobile-nav-item {
+    color: rgba(226, 85, 85, 0.7);
+    border-bottom-color: rgba(226, 85, 85, 0.1);
+  }
+
+  .nav-projects .mobile-nav-item:hover {
+    background: rgba(226, 85, 85, 0.1);
+    color: #E25555;
+  }
+
+  .nav-contact .mobile-nav-item {
+    color: rgba(78, 214, 166, 0.7);
+    border-bottom-color: rgba(78, 214, 166, 0.1);
+  }
+
+  .nav-contact .mobile-nav-item:hover {
+    background: rgba(78, 214, 166, 0.1);
+    color: #4ED6A6;
+  }
+
+  /* Mobile nav active states handled by section classes */
 
   .mobile-nav-label {
     font-family: 'Courier New', monospace;
@@ -318,17 +631,15 @@ const navItems = [
   .mobile-toggle-switch {
     width: 2rem;
     height: 1rem;
-    background: #2a2520;
-    border: 1px solid #8b4513;
     border-radius: 0.5rem;
     position: relative;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+    transition: background 0.4s ease, border-color 0.4s ease;
   }
 
   .mobile-toggle-indicator {
     width: 0.75rem;
     height: 0.75rem;
-    background: #8b4513;
     border-radius: 50%;
     position: absolute;
     left: 0.125rem;
@@ -338,10 +649,41 @@ const navItems = [
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
   }
 
-  .mobile-nav-item.active .mobile-toggle-indicator {
-    left: calc(100% - 0.75rem - 0.125rem);
-    background: #ff8c00;
-    box-shadow: 0 0 8px rgba(255, 140, 0, 0.8);
+  /* Mobile toggle colors by section */
+  .nav-hero .mobile-toggle-switch {
+    background: #2a2520;
+    border: 1px solid #8b4513;
+  }
+
+  .nav-hero .mobile-toggle-indicator {
+    background: #8b4513;
+  }
+
+  .nav-experience .mobile-toggle-switch {
+    background: rgba(10, 10, 26, 0.8);
+    border: 1px solid rgba(74, 158, 255, 0.4);
+  }
+
+  .nav-experience .mobile-toggle-indicator {
+    background: rgba(74, 158, 255, 0.6);
+  }
+
+  .nav-projects .mobile-toggle-switch {
+    background: rgba(42, 23, 23, 0.8);
+    border: 1px solid rgba(122, 43, 43, 0.5);
+  }
+
+  .nav-projects .mobile-toggle-indicator {
+    background: rgba(226, 85, 85, 0.6);
+  }
+
+  .nav-contact .mobile-toggle-switch {
+    background: rgba(18, 39, 35, 0.8);
+    border: 1px solid rgba(31, 90, 71, 0.5);
+  }
+
+  .nav-contact .mobile-toggle-indicator {
+    background: rgba(78, 214, 166, 0.6);
   }
 
   /* Responsive Styles */

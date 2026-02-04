@@ -16,9 +16,14 @@ import ContactSection from '../components/ContactSection.astro';
 <Layout>
   <Navigation />
   <main>
+    {/* Section markers for navbar color changes */}
+    <div id="section-marker-hero" class="section-marker"></div>
     <HeroSection />
+    <div id="section-marker-experience" class="section-marker"></div>
     <ExperienceSection />
+    <div id="section-marker-projects" class="section-marker"></div>
     <ProjectsSection />
+    <div id="section-marker-contact" class="section-marker"></div>
     <ContactSection />
   </main>
 </Layout>
@@ -29,27 +34,62 @@ import ContactSection from '../components/ContactSection.astro';
     // Update active navigation on scroll
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-toggle');
+    const nav = document.getElementById('main-nav');
+    const markers = document.querySelectorAll('.section-marker');
 
     const updateActiveNav = () => {
-      const scrollY = window.pageYOffset;
+      const scrollY = window.pageYOffset + 150; // Offset for better detection
+      let activeSection = 'hero'; // Default to hero
+      let closestSection = null;
+      let closestDistance = Infinity;
+
+      // First, remove active class from all nav links
+      navLinks.forEach((link) => {
+        link.classList.remove('active');
+      });
 
       sections.forEach((section) => {
         const sectionHeight = section.offsetHeight;
-        const sectionTop = section.offsetTop - 100;
+        const sectionTop = section.offsetTop;
         const sectionId = section.getAttribute('id');
+        const sectionBottom = sectionTop + sectionHeight;
 
-        if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-          navLinks.forEach((link) => {
-            link.classList.remove('active');
-            if (link.getAttribute('data-section') === sectionId) {
-              link.classList.add('active');
-            }
-          });
+        // Check if we're within the section
+        if (scrollY >= sectionTop && scrollY <= sectionBottom) {
+          activeSection = sectionId;
+        }
+
+        // Also track closest section for edge cases
+        const distance = Math.abs(scrollY - (sectionTop + sectionHeight / 2));
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestSection = sectionId;
         }
       });
+
+      // If no section is active (at very top), use closest or default to hero
+      if (scrollY < 200) {
+        activeSection = 'hero';
+      } else if (activeSection === 'hero' && scrollY > (sections[0]?.offsetTop + sections[0]?.offsetHeight || 0)) {
+        activeSection = closestSection || 'hero';
+      }
+
+      // Set active class on the correct nav link
+      navLinks.forEach((link) => {
+        if (link.getAttribute('data-section') === activeSection) {
+          link.classList.add('active');
+        }
+      });
+
+      // Update navbar color based on active section
+      if (nav) {
+        nav.classList.remove('nav-hero', 'nav-experience', 'nav-projects', 'nav-contact');
+        nav.classList.add(`nav-${activeSection}`);
+      }
     };
 
     window.addEventListener('scroll', updateActiveNav);
+    updateActiveNav(); // Initial call
 
     // Smooth scroll for navigation links
     navLinks.forEach((link) => {
@@ -90,6 +130,15 @@ import ContactSection from '../components/ContactSection.astro';
 <style>
   main {
     position: relative;
+  }
+
+  /* Section markers - invisible divs to trigger color changes */
+  .section-marker {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    pointer-events: none;
+    opacity: 0;
   }
 
   /* Transition effect when entering experience section */
