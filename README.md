@@ -1,6 +1,6 @@
 # 🛠️ The Scavenger's Path
 
-**"The Scavenger's Path"** is a deeply immersive, Star Wars-themed personal portfolio. It serves as a digital workbench where code meets the cosmos, blending a gritty, industrial aesthetic with the high-tech elegance of the Jedi Order. Made it myself with design inspo, and some help from my ai collegues XD
+**"The Scavenger's Path"** is a deeply immersive, Star Wars-themed personal portfolio. It serves as a digital workbench where code meets the cosmos, blending a gritty, industrial aesthetic with the high-tech elegance of the Jedi Order. Made it myself with design inspo, and some help from my ai colleagues XD
 
 ## 🎨 Design & Aesthetic
 * **The Workshop:** The interface is designed to feel like a top-down view of a technician’s workbench in the Outer Rim—complete with rusted metal panels, tactile toggle switches, and scattered mechanical parts.
