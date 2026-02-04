@@ -466,12 +466,41 @@ import c3poImage from '../assets/home/c3po.png';
   }
 
   @media (max-width: 768px) {
+    .hero-section {
+      min-height: auto;
+      padding: 6rem 0 4rem;
+    }
+
+    .container {
+      padding: 0 1rem;
+    }
+
     .datapad-screen {
       padding: 1.5rem;
     }
 
+    .panel-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
     .panel-header h1 {
-      font-size: 2rem;
+      font-size: 1.75rem;
+      line-height: 1.2;
+    }
+
+    .panel-content p {
+      font-size: 0.875rem !important;
+    }
+
+    .panel-content p:first-child {
+      font-size: 1rem !important;
+    }
+
+    .status-indicators {
+      top: 0.75rem;
+      right: 0.75rem;
     }
 
     .workbench-image {
@@ -484,8 +513,74 @@ import c3poImage from '../assets/home/c3po.png';
         linear-gradient(180deg, rgba(26, 22, 18, 0.8) 0%, rgba(26, 22, 18, 0.95) 100%);
     }
 
+    .workshop-tools {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .tool-item {
+      padding: 1rem;
+    }
+
+    .tool-value {
+      font-size: 1.5rem;
+    }
+
     .c3po-container {
       display: none;
+    }
+
+    .scroll-indicator {
+      bottom: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-section {
+      padding: 5rem 0 3rem;
+    }
+
+    .datapad-screen {
+      padding: 1.25rem;
+    }
+
+    .panel-header h1 {
+      font-size: 1.5rem;
+    }
+
+    .panel-content p {
+      font-size: 0.8125rem !important;
+      margin-bottom: 0.75rem;
+    }
+
+    .panel-content p:first-child {
+      font-size: 0.9375rem !important;
+    }
+
+    .status-indicators {
+      top: 0.5rem;
+      right: 0.5rem;
+    }
+
+    .indicator {
+      width: 0.625rem;
+      height: 0.625rem;
+    }
+
+    .workshop-tools {
+      gap: 0.75rem;
+    }
+
+    .tool-item {
+      padding: 0.875rem;
+    }
+
+    .tool-label {
+      font-size: 0.6875rem;
+    }
+
+    .tool-value {
+      font-size: 1.25rem;
     }
   }
 </style>
