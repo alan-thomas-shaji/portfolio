@@ -8,6 +8,8 @@
 import DatacardIcon from './icons/DatacardIcon.astro';
 import ImperialCogIcon from './icons/ImperialCogIcon.astro';
 
+import yodaImage from '../assets/home/yoda.png';
+
 const contactInfo = {
   email: 'alanthomasshaji079@gmail.com',
   location: 'Kochi, India',
@@ -18,6 +20,16 @@ const contactInfo = {
 
 <section id="contact" class="contact-section min-h-screen py-20 relative flex items-center">
   <div class="contact-background"></div>
+  
+  {/* Yoda Floating Image - Left Side */}
+  <div class="floating-droid yoda-container">
+    <img 
+      src={yodaImage.src} 
+      alt="Yoda" 
+      class="droid-image yoda-image clickable-droid"
+      data-audio="/sounds/yoda.mp3"
+    />
+  </div>
   
   <div class="container mx-auto px-4 relative z-10">
     <div class="contact-container">
@@ -219,6 +231,59 @@ const contactInfo = {
     font-size: 0.875rem;
   }
 
+  .floating-droid {
+    position: absolute;
+    z-index: 5;
+  }
+
+  .yoda-container {
+    left: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    animation: float-droid-yoda 4s ease-in-out infinite;
+  }
+
+  .yoda-image {
+    max-width: 280px;
+    width: auto;
+    height: auto;
+    filter: drop-shadow(0 10px 30px rgba(78, 214, 166, 0.3));
+    opacity: 0.85;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .clickable-droid {
+    cursor: pointer;
+  }
+
+  .clickable-droid:hover {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+
+  .clickable-droid:active {
+    transform: scale(0.95);
+  }
+
+  @keyframes float-droid-yoda {
+    0%, 100% {
+      transform: translateY(-50%) translateY(0px);
+    }
+    50% {
+      transform: translateY(-50%) translateY(-20px);
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .yoda-container {
+      left: 1rem;
+    }
+
+    .yoda-image {
+      max-width: 200px;
+    }
+  }
+
   @media (max-width: 768px) {
     .contact-section {
       padding: 4rem 0;
@@ -262,6 +327,10 @@ const contactInfo = {
     .contact-value {
       font-size: 0.9375rem;
       word-break: break-word;
+    }
+
+    .yoda-container {
+      display: none;
     }
   }
 
@@ -319,4 +388,67 @@ const contactInfo = {
     }
   }
 </style>
+
+<script is:inline>
+  // Yoda Audio Handler
+  (function() {
+    let yodaAudio = null;
+    
+    function initDroidAudio() {
+      const yodaImage = document.querySelector('.yoda-image');
+      
+      if (yodaImage) {
+        const audioSrc = yodaImage.getAttribute('data-audio');
+        
+        console.log('Yoda audio source:', audioSrc);
+        
+        // Preload audio
+        yodaAudio = new Audio(audioSrc);
+        yodaAudio.volume = 0.7;
+        yodaAudio.preload = 'auto';
+        
+        // Handle audio load errors
+        yodaAudio.addEventListener('error', function(e) {
+          console.error('Yoda audio load error:', e);
+        });
+        
+        yodaImage.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          console.log('Yoda clicked, playing audio...');
+          
+          // Reset and play
+          if (yodaAudio) {
+            yodaAudio.currentTime = 0;
+            const playPromise = yodaAudio.play();
+            
+            if (playPromise !== undefined) {
+              playPromise.then(function() {
+                console.log('Yoda audio playing');
+              }).catch(function(error) {
+                console.error('Yoda audio play failed:', error);
+                // Try creating new instance if preloaded one fails
+                const newAudio = new Audio(audioSrc);
+                newAudio.volume = 0.7;
+                newAudio.play().catch(function(err) {
+                  console.error('Yoda retry also failed:', err);
+                });
+              });
+            }
+          }
+        });
+      }
+    }
+    
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initDroidAudio);
+    } else {
+      initDroidAudio();
+    }
+
+    // Also handle Astro view transitions
+    document.addEventListener('astro:after-swap', initDroidAudio);
+  })();
+</script>
 
