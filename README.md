@@ -1,9 +1,6 @@
 # 🛠️ The Scavenger's Path
 
-**"The Scavenger's Path"** is a deeply immersive, Star Wars-themed personal portfolio. It serves as a digital workbench where code meets the cosmos, blending a gritty, industrial aesthetic with the high-tech elegance of the Jedi Order.
-
-## 🌌 The Vision
-Rather than a traditional resume, this site is built around a "Zero to Hero" narrative. It treats professional growth as a journey through the Force, evolving from a curious **Padawan** to a battle-hardened **Guardian**, and finally to a **Master** of the craft.
+**"The Scavenger's Path"** is a deeply immersive, Star Wars-themed personal portfolio. It serves as a digital workbench where code meets the cosmos, blending a gritty, industrial aesthetic with the high-tech elegance of the Jedi Order. Made it myself with design inspo, and some help from my ai collegues XD
 
 ## 🎨 Design & Aesthetic
 * **The Workshop:** The interface is designed to feel like a top-down view of a technician’s workbench in the Outer Rim—complete with rusted metal panels, tactile toggle switches, and scattered mechanical parts.
