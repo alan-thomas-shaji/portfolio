@@ -23,8 +23,8 @@ const contactInfo = {
     <div class="contact-container">
       <div class="section-header">
         <div class="header-title-wrapper">
-          <ImperialCogIcon class="w-10 h-10 text-workshop-orange header-icon" />
-          <h2 class="text-4xl md:text-5xl font-bold text-workshop-orange font-mono">
+          <ImperialCogIcon class="w-10 h-10 header-icon contact-accent" />
+          <h2 class="text-4xl md:text-5xl font-bold font-mono contact-accent">
             [ESTABLISH CONTACT]
           </h2>
         </div>
@@ -106,8 +106,12 @@ const contactInfo = {
     right: 0;
     bottom: 0;
     background: 
-      radial-gradient(circle at 50% 50%, rgba(255, 140, 0, 0.08) 0%, transparent 70%);
+      radial-gradient(circle at 50% 50%, rgba(78, 214, 166, 0.08) 0%, transparent 70%);
     pointer-events: none;
+  }
+
+  .contact-accent {
+    color: #4ED6A6;
   }
 
   .contact-container {
@@ -136,8 +140,8 @@ const contactInfo = {
   }
 
   .contact-panel {
-    background: rgba(30, 25, 20, 0.8);
-    border: 2px solid rgba(255, 140, 0, 0.3);
+    background: rgba(18, 39, 35, 0.6);
+    border: 2px solid rgba(31, 90, 71, 0.4);
     border-radius: 12px;
     padding: 3rem;
     backdrop-filter: blur(10px);
@@ -156,21 +160,21 @@ const contactInfo = {
     align-items: flex-start;
     gap: 1rem;
     padding: 1.5rem;
-    background: rgba(40, 35, 30, 0.5);
-    border: 1px solid rgba(255, 140, 0, 0.2);
+    background: rgba(18, 39, 35, 0.4);
+    border: 1px solid rgba(31, 90, 71, 0.3);
     border-radius: 8px;
     transition: all 0.3s ease;
   }
 
   .contact-item:hover {
-    border-color: rgba(255, 140, 0, 0.5);
-    background: rgba(40, 35, 30, 0.7);
+    border-color: rgba(31, 90, 71, 0.6);
+    background: rgba(18, 39, 35, 0.6);
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(255, 140, 0, 0.1);
+    box-shadow: 0 8px 20px rgba(127, 242, 196, 0.15);
   }
 
   .contact-icon {
-    color: #ff8c00;
+    color: #4ED6A6;
     flex-shrink: 0;
     margin-top: 0.25rem;
   }
@@ -192,21 +196,21 @@ const contactInfo = {
 
   .contact-value {
     font-size: 1rem;
-    color: #ff8c00;
+    color: #4ED6A6;
     text-decoration: none;
     font-weight: 500;
     transition: color 0.3s ease;
   }
 
   .contact-value:hover {
-    color: #ffa500;
+    color: #7FF2C4;
     text-decoration: underline;
   }
 
   .contact-footer {
     margin-top: 2rem;
     padding-top: 2rem;
-    border-top: 1px solid rgba(255, 140, 0, 0.2);
+    border-top: 1px solid rgba(31, 90, 71, 0.3);
     text-align: center;
   }
 

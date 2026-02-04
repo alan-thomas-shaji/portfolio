@@ -46,10 +46,10 @@ const projects: Project[] = [
   <div class="container mx-auto px-4 relative z-10">
     <div class="section-header">
       <div class="header-content">
-        <div class="header-left">
+          <div class="header-left">
           <div class="header-title-wrapper">
-            <DatacardIcon class="w-10 h-10 text-workshop-orange header-icon" />
-            <h2 class="text-4xl md:text-5xl font-bold text-workshop-orange font-mono">
+            <DatacardIcon class="w-10 h-10 header-icon projects-accent" />
+            <h2 class="text-4xl md:text-5xl font-bold font-mono projects-accent">
               [FEATURED PROJECTS]
             </h2>
           </div>
@@ -76,7 +76,7 @@ const projects: Project[] = [
           <div class="card-glow"></div>
           
           <div class="card-header">
-            <RebelStarbirdIcon class="w-8 h-8 text-workshop-orange" />
+            <RebelStarbirdIcon class="w-8 h-8 projects-accent" />
             <div class="card-title-group">
               <h3 class="card-title">{project.title}</h3>
             </div>
@@ -121,9 +121,13 @@ const projects: Project[] = [
     right: 0;
     bottom: 0;
     background: 
-      radial-gradient(circle at 30% 30%, rgba(255, 140, 0, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 70% 70%, rgba(139, 69, 19, 0.1) 0%, transparent 50%);
+      radial-gradient(circle at 30% 30%, rgba(226, 85, 85, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 70% 70%, rgba(42, 23, 23, 0.1) 0%, transparent 50%);
     pointer-events: none;
+  }
+
+  .projects-accent {
+    color: #E25555;
   }
 
   .section-header {
@@ -175,14 +179,14 @@ const projects: Project[] = [
     height: auto;
     cursor: pointer;
     transition: transform 0.3s ease, filter 0.3s ease;
-    filter: drop-shadow(0 10px 30px rgba(255, 140, 0, 0.3));
+    filter: drop-shadow(0 10px 30px rgba(255, 107, 107, 0.3));
     transform-style: preserve-3d;
     transform-origin: center center;
   }
 
   .falcon-image:hover {
     transform: scale(1.1);
-    filter: drop-shadow(0 15px 40px rgba(255, 140, 0, 0.5));
+    filter: drop-shadow(0 15px 40px rgba(255, 107, 107, 0.5));
   }
 
   .falcon-image.flying {
@@ -200,8 +204,8 @@ const projects: Project[] = [
 
   .project-card {
     position: relative;
-    background: rgba(30, 25, 20, 0.8);
-    border: 1px solid rgba(255, 140, 0, 0.3);
+    background: rgba(42, 23, 23, 0.6);
+    border: 1px solid rgba(122, 43, 43, 0.4);
     border-radius: 12px;
     padding: 2rem;
     backdrop-filter: blur(10px);
@@ -222,7 +226,7 @@ const projects: Project[] = [
     left: -2px;
     right: -2px;
     bottom: -2px;
-    background: linear-gradient(135deg, rgba(255, 140, 0, 0.4), rgba(139, 69, 19, 0.3));
+    background: linear-gradient(135deg, rgba(255, 107, 107, 0.3), rgba(226, 85, 85, 0.2));
     border-radius: 12px;
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -235,9 +239,9 @@ const projects: Project[] = [
   }
 
   .project-card:hover {
-    border-color: rgba(255, 140, 0, 0.6);
+    border-color: rgba(122, 43, 43, 0.6);
     transform: translateY(-5px);
-    box-shadow: 0 12px 32px rgba(255, 140, 0, 0.2);
+    box-shadow: 0 12px 32px rgba(255, 107, 107, 0.25);
   }
 
   .card-header {
@@ -246,7 +250,7 @@ const projects: Project[] = [
     gap: 1rem;
     margin-bottom: 1.5rem;
     padding-bottom: 1rem;
-    border-bottom: 2px solid rgba(255, 140, 0, 0.3);
+    border-bottom: 2px solid rgba(122, 43, 43, 0.4);
   }
 
   .card-title-group {
@@ -256,7 +260,7 @@ const projects: Project[] = [
   .card-title {
     font-size: 1.75rem;
     font-weight: bold;
-    color: #ff8c00;
+    color: #E25555;
     margin: 0;
   }
 
@@ -274,7 +278,7 @@ const projects: Project[] = [
   .highlights-label {
     display: block;
     font-size: 0.875rem;
-    color: #ff8c00;
+    color: #E25555;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     margin-bottom: 0.75rem;
@@ -288,9 +292,9 @@ const projects: Project[] = [
   }
 
   .highlight-tag {
-    background: rgba(255, 140, 0, 0.2);
-    border: 1px solid rgba(255, 140, 0, 0.4);
-    color: #ff8c00;
+    background: rgba(226, 85, 85, 0.15);
+    border: 1px solid rgba(122, 43, 43, 0.5);
+    color: #E25555;
     padding: 0.25rem 0.75rem;
     border-radius: 4px;
     font-size: 0.875rem;
