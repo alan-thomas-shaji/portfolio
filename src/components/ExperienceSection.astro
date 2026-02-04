@@ -67,11 +67,13 @@ const experiences: Experience[] = [
   
   <div class="container mx-auto px-4 relative z-10">
     <div class="section-header">
-      <SaberHiltIcon class="w-10 h-10 text-jedi-blue mb-4" />
-      <h2 class="text-4xl md:text-5xl font-bold text-jedi-blue font-mono mb-4">
-        [JEDI EVOLUTION]
-      </h2>
-      <p class="text-gray-300 text-lg max-w-2xl">
+      <div class="header-title-wrapper">
+        <SaberHiltIcon class="w-10 h-10 text-jedi-blue header-icon" />
+        <h2 class="text-4xl md:text-5xl font-bold text-jedi-blue font-mono">
+          [JEDI EVOLUTION]
+        </h2>
+      </div>
+      <p class="text-gray-300 text-lg max-w-2xl mx-auto">
         The path from Padawan to Master, chronicled through years of code and growth.
       </p>
     </div>
@@ -133,6 +135,21 @@ const experiences: Experience[] = [
   .section-header {
     text-align: center;
     margin-bottom: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .header-title-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .header-icon {
+    flex-shrink: 0;
   }
 
   .timeline-container {
@@ -375,6 +392,15 @@ const experiences: Experience[] = [
       font-size: 2rem !important;
     }
 
+    .header-icon {
+      width: 2rem;
+      height: 2rem;
+    }
+
+    .header-title-wrapper {
+      gap: 0.75rem;
+    }
+
     .section-header p {
       font-size: 0.9375rem;
     }
@@ -455,6 +481,15 @@ const experiences: Experience[] = [
 
     .section-header h2 {
       font-size: 1.75rem !important;
+    }
+
+    .header-icon {
+      width: 1.75rem;
+      height: 1.75rem;
+    }
+
+    .header-title-wrapper {
+      gap: 0.5rem;
     }
 
     .section-header p {

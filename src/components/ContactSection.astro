@@ -22,10 +22,12 @@ const contactInfo = {
   <div class="container mx-auto px-4 relative z-10">
     <div class="contact-container">
       <div class="section-header">
-        <ImperialCogIcon class="w-10 h-10 text-workshop-orange mb-4" />
-        <h2 class="text-4xl md:text-5xl font-bold text-workshop-orange font-mono mb-4">
-          [ESTABLISH CONTACT]
-        </h2>
+        <div class="header-title-wrapper">
+          <ImperialCogIcon class="w-10 h-10 text-workshop-orange header-icon" />
+          <h2 class="text-4xl md:text-5xl font-bold text-workshop-orange font-mono">
+            [ESTABLISH CONTACT]
+          </h2>
+        </div>
         <p class="text-gray-300 text-lg max-w-2xl mx-auto mb-8">
           Ready to collaborate on your next project? Let's connect and build something amazing together.
         </p>
@@ -85,12 +87,6 @@ const contactInfo = {
             </div>
           </div>
         </div>
-
-        <div class="contact-footer">
-          <p class="footer-text">
-            <span class="font-mono text-workshop-orange">[STATUS]</span> Available for new opportunities and collaborations
-          </p>
-        </div>
       </div>
     </div>
   </div>
@@ -122,6 +118,21 @@ const contactInfo = {
   .section-header {
     text-align: center;
     margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .header-title-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .header-icon {
+    flex-shrink: 0;
   }
 
   .contact-panel {
@@ -218,6 +229,15 @@ const contactInfo = {
       font-size: 2rem !important;
     }
 
+    .header-icon {
+      width: 2rem;
+      height: 2rem;
+    }
+
+    .header-title-wrapper {
+      gap: 0.75rem;
+    }
+
     .section-header p {
       font-size: 0.9375rem;
     }
@@ -252,6 +272,15 @@ const contactInfo = {
 
     .section-header h2 {
       font-size: 1.75rem !important;
+    }
+
+    .header-icon {
+      width: 1.75rem;
+      height: 1.75rem;
+    }
+
+    .header-title-wrapper {
+      gap: 0.5rem;
     }
 
     .section-header p {
